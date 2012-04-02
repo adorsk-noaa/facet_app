@@ -32,7 +32,7 @@ function($, Backbone, _, ui, _s, template){
 
 		resize: function(){
 			this.resizeFacets();
-			this.resizeViewPane();
+			this.resizeDataView();
 		},
 
 		resizeFacets: function() {
@@ -47,12 +47,21 @@ function($, Backbone, _, ui, _s, template){
 			allTabPanels.height(totalHeight - headerHeight - paddings - 1);
 		},
 		
-		resizeViewPane: function() {
+		resizeDataView: function() {
 			container = $('.right-panel', this.el);
 			var totalHeight = container.height();
 			var headerHeight = $(".top-bar", container).outerHeight(true);
-			$('.view-pane', container).css('height', totalHeight - headerHeight);
+			$('.data-view', container).css('height', totalHeight - headerHeight);
+		},
+
+		getFacetsEl: function(){
+			return $('.facets', this.el);
+		},
+
+		getDataViewEl: function(){
+			return $('.data-view', this.el);
 		}
+
 	});
 
 	return FacetAppView;

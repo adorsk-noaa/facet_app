@@ -4,11 +4,10 @@
 
 		<div class="tabs">
 			<ul>
-				<li><a href="#facets">Facet/Filter</a></li>
+				<li><a href="#<%= model.id %>-facets">Facet/Filter</a></li>
 			</ul>	
 
-			<div id="facets">
-				facets
+			<div id="<%= model.id %>-facets" class="facets">
 			</div>
 
 		</div>
@@ -21,16 +20,14 @@
 			<div class="top-bar">
 
 				<div class="summary-bar bar">
-					summary bar
 				</div>
 
 				<div class="tool-bar bar">
-					tool bar
 				</div>
 
 			</div>
 
-			<div class="view-pane">
+			<div class="data-view">
 				view panel
 			</div>
 

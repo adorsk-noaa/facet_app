@@ -32,7 +32,7 @@ function($, Backbone, _, ui, _s, template){
 
 		resize: function(){
 			this.resizeFacets();
-			this.resizeDataView();
+			this.resizeRightPanel();
 		},
 
 		resizeFacets: function() {
@@ -47,11 +47,25 @@ function($, Backbone, _, ui, _s, template){
 			allTabPanels.height(totalHeight - headerHeight - paddings - 1);
 		},
 		
+		resizeRightPanel: function() {
+			var right_panel_el = $('.right-panel', this.el);
+			var container = right_panel_el.parent();
+			var totalWidth = container.width();
+			var left_panel_width = $('.left-panel', this.el).width();
+			right_panel_el.css('width', totalWidth - left_panel_width);
+
+			this.resizeDataView();
+		},
+
 		resizeDataView: function() {
-			container = $('.right-panel', this.el);
+			var container = $('.right-panel', this.el);
+			var data_view_el = $('.data-view', container);
 			var totalHeight = container.height();
+			var totalWidth= container.width();
 			var headerHeight = $(".top-bar", container).outerHeight(true);
-			$('.data-view', container).css('height', totalHeight - headerHeight);
+			data_view_el.css('height', totalHeight - headerHeight);
+			data_view_el.css('width', totalWidth);
+			data_view_el.trigger('viewResize');
 		},
 
 		getFacetsEl: function(){

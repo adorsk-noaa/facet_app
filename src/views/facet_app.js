@@ -24,9 +24,16 @@ function($, Backbone, _, ui, _s, template){
 			$(this.el).html(app_html);
 
 			$('.left-panel .tabs', this.el).tabs({select: 0});
+
+			this.resize();
 			this.resizeTabs($('.left-panel', this.el));
 
 			return this;
+		},
+
+		resize: function(){
+			console.log('resize');
+			$(this.el).css('width', $(this.el).parent().width());
 		},
 
 		resizeTabs: function(tab_container) {

@@ -23,8 +23,23 @@ function($, Backbone, _, ui, _s, template){
 			app_html = _.template(template, {model: this.model.toJSON()});
 			$(this.el).html(app_html);
 
+			$('.left-panel .tabs', this.el).tabs({select: 0});
+			this.resizeTabs($('.left-panel', this.el));
+
 			return this;
 		},
+
+		resizeTabs: function(tab_container) {
+			var totalHeight = $(tab_container).height();
+			var headerHeight = $(".ui-tabs-nav", tab_container).outerHeight(true);
+
+			var visibleTabPanels = $(".ui-tabs-panel:not(.ui-tabs-hide)", tab_container);
+			var paddings = visibleTabPanels.outerHeight(true) - visibleTabPanels.height();
+
+			var allTabPanels = $(".ui-tabs-panel", tab_container);
+			allTabPanels.height(totalHeight - headerHeight - paddings - 1);
+		}
+
 		
 	});
 

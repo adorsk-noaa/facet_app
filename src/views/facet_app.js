@@ -26,28 +26,33 @@ function($, Backbone, _, ui, _s, template){
 			$('.left-panel .tabs', this.el).tabs({select: 0});
 
 			this.resize();
-			this.resizeTabs($('.left-panel', this.el));
 
 			return this;
 		},
 
 		resize: function(){
-			console.log('resize');
-			$(this.el).css('width', $(this.el).parent().width());
+			this.resizeFacets();
+			this.resizeViewPane();
 		},
 
-		resizeTabs: function(tab_container) {
-			var totalHeight = $(tab_container).height();
-			var headerHeight = $(".ui-tabs-nav", tab_container).outerHeight(true);
+		resizeFacets: function() {
+			container = $('.left-panel', this.el);
+			var totalHeight = container.height();
+			var headerHeight = $(".ui-tabs-nav", container).outerHeight(true);
 
-			var visibleTabPanels = $(".ui-tabs-panel:not(.ui-tabs-hide)", tab_container);
+			var visibleTabPanels = $(".ui-tabs-panel:not(.ui-tabs-hide)", container);
 			var paddings = visibleTabPanels.outerHeight(true) - visibleTabPanels.height();
 
-			var allTabPanels = $(".ui-tabs-panel", tab_container);
+			var allTabPanels = $(".ui-tabs-panel", container);
 			allTabPanels.height(totalHeight - headerHeight - paddings - 1);
-		}
-
+		},
 		
+		resizeViewPane: function() {
+			container = $('.right-panel', this.el);
+			var totalHeight = container.height();
+			var headerHeight = $(".top-bar", container).outerHeight(true);
+			$('.view-pane', container).css('height', totalHeight - headerHeight);
+		}
 	});
 
 	return FacetAppView;

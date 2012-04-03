@@ -31,12 +31,12 @@ function($, Backbone, _, ui, _s, template){
 		},
 
 		resize: function(){
-			this.resizeFacets();
+			this.resizeLeftPanel();
 			this.resizeRightPanel();
 		},
 
-		resizeFacets: function() {
-			container = $('.left-panel', this.el);
+		resizeLeftPanel: function() {
+			var container = $('.left-panel', this.el);
 			var totalHeight = container.height();
 			var headerHeight = $(".ui-tabs-nav", container).outerHeight(true);
 
@@ -51,9 +51,10 @@ function($, Backbone, _, ui, _s, template){
 			var right_panel_el = $('.right-panel', this.el);
 			var container = right_panel_el.parent();
 			var totalWidth = container.width();
+			var totalHeight = container.height();
 			var left_panel_width = $('.left-panel', this.el).width();
 			right_panel_el.css('width', totalWidth - left_panel_width);
-
+			right_panel_el.css('height', totalHeight);
 			this.resizeDataView();
 		},
 
@@ -61,7 +62,8 @@ function($, Backbone, _, ui, _s, template){
 			var container = $('.right-panel', this.el);
 			var data_view_el = $('.data-view', container);
 			var totalHeight = container.height();
-			var totalWidth= container.width();
+			var totalWidth = container.width();
+			
 			var headerHeight = $(".top-bar", container).outerHeight(true);
 			data_view_el.css('height', totalHeight - headerHeight);
 			data_view_el.css('width', totalWidth);

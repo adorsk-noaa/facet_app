@@ -37,7 +37,6 @@ function($, Backbone, _, ui, _s, template){
 		resize: function(){
 			this.resizeLeftPanel();
 			this.resizeRightPanel();
-			this.resizeDataViews();
 		},
 
 		resizeLeftPanel: function() {
@@ -58,11 +57,24 @@ function($, Backbone, _, ui, _s, template){
 			var totalWidth = container.width();
 			var totalHeight = container.height();
 			var left_panel_width = $('.left-panel', this.el).width();
+
 			right_panel_el.css('width', totalWidth - left_panel_width);
 			right_panel_el.css('height', totalHeight);
+
+			this.resizeDataViews();
+
 		},
 
 		resizeDataViews: function() {
+			var container = $('.right-panel > .inner', this.el);
+			var totalHeight = container.height();
+			var headerHeight = $(".top-bar", container).outerHeight(true);
+
+			var data_views_el = $('.data-views', container);
+			var paddings = data_views_el.outerHeight(true) - data_views_el.height();
+
+			data_views_el.height(totalHeight - headerHeight - paddings -1);
+
 			_.each(this.data_views, function(data_view){
 				data_view.trigger('resizeView');
 			});
@@ -77,9 +89,11 @@ function($, Backbone, _, ui, _s, template){
 		},
 
 		addDataView: function(data_view){
-			$(data_view.el).addClass('data-view');
-			$('.data-views', this.el).append(data_view.el);
 			this.data_views[data_view.model.cid] = data_view;
+			$(data_view.el).addClass('data-view');
+			var data_view_container = $('<div class="data-view-container"></div>');
+			data_view_container.append(data_view.el);
+			$('.data-views', this.el).append(data_view_container);
 		},
 
 		onReady: function(){

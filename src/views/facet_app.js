@@ -14,8 +14,12 @@ function($, Backbone, _, ui, _s, template){
 		},
 
 		initialize: function(){
+			this.data_views = {};
+
 			this.render();
 			$(this.el).addClass('facet-app');
+
+			this.on('ready', this.onReady, this);
 
 		},
 
@@ -33,6 +37,7 @@ function($, Backbone, _, ui, _s, template){
 		resize: function(){
 			this.resizeLeftPanel();
 			this.resizeRightPanel();
+			this.resizeDataViews();
 		},
 
 		resizeLeftPanel: function() {
@@ -55,19 +60,12 @@ function($, Backbone, _, ui, _s, template){
 			var left_panel_width = $('.left-panel', this.el).width();
 			right_panel_el.css('width', totalWidth - left_panel_width);
 			right_panel_el.css('height', totalHeight);
-			this.resizeDataView();
 		},
 
-		resizeDataView: function() {
-			var container = $('.right-panel', this.el);
-			var data_view_el = $('.data-view', container);
-			var totalHeight = container.height();
-			var totalWidth = container.width();
-			
-			var headerHeight = $(".top-bar", container).outerHeight(true);
-			data_view_el.css('height', totalHeight - headerHeight);
-			data_view_el.css('width', totalWidth);
-			data_view_el.trigger('viewResize');
+		resizeDataViews: function() {
+			_.each(this.data_views, function(data_view){
+				data_view.trigger('resizeView');
+			});
 		},
 
 		getFacetsEl: function(){
@@ -76,6 +74,18 @@ function($, Backbone, _, ui, _s, template){
 
 		getDataViewEl: function(){
 			return $('.data-view', this.el);
+		},
+
+		addDataView: function(data_view){
+			$(data_view.el).addClass('data-view');
+			$('.data-views', this.el).append(data_view.el);
+			this.data_views[data_view.model.cid] = data_view;
+		},
+
+		onReady: function(){
+			_.each(this.data_views, function(data_view){
+				data_view.trigger('ready');
+			});
 		}
 
 	});

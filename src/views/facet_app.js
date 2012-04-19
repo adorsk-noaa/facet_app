@@ -41,8 +41,23 @@ function($, Backbone, _, ui, _s, template){
 			var totalHeight = container.height();
 			inner_el.css('height', totalHeight);
 
-			// Resize right panel.
+			// Resize panels.
+			this.resizeLeftPanel();
 			this.resizeRightPanel();
+		},
+
+		resizeLeftPanel: function() {
+			var tabs_el = $('.tabs', this.el);
+			var tabnav_el = $('.ui-tabs-nav', tabs_el);
+			var tabpanel_el = $('.ui-tabs-panel', tabs_el);
+			var container = tabs_el.parent();
+
+			tabs_el_padding = tabs_el.outerHeight(true) - tabs_el.height();
+
+			tabs_el.css('height', container.height() - tabs_el_padding);
+
+			tabpanel_el.css('height', tabs_el.outerHeight(true) - tabs_el_padding - tabnav_el.outerHeight(true) - 1);
+
 		},
 
 		resizeRightPanel: function() {

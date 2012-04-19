@@ -56,7 +56,7 @@ function($, Backbone, _, ui, _s, template){
 
 			tabs_el.css('height', container.height() - tabs_el_padding);
 
-			tabpanel_el.css('height', tabs_el.outerHeight(true) - tabs_el_padding - tabnav_el.outerHeight(true) - 1);
+			tabpanel_el.css('height', tabs_el.outerHeight(true) - tabs_el_padding - tabnav_el.outerHeight(true) - 2);
 
 		},
 

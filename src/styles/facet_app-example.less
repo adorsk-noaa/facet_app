@@ -10,37 +10,44 @@
 		overflow: hidden;
 		padding: 0px;
 		position: absolute;
+		height: 100%;
 	}
 
 	.left-panel{
+
 		left: 0px;
 		top: 0px;
 		width: 300px;
 		background: #e3e9ff;
-		padding-top: 5px;
 
-		.ui-tabs-nav {
-			height: 27px;
+		.tabs {
+			padding-top: 5px;
+			height: 100%;
 
-			li {
-				font-size: .625em;
+			.ui-tabs-nav {
+				height: 27px;
 
-				a {
-					margin-bottom: 0px;
+				li {
+					font-size: .625em;
+
+					a {
+						margin-bottom: 0px;
+					}
 				}
+			}
+
+			.ui-tabs-panel {
+				border-bottom: medium none;
+				border-left: medium none;
+				border-right: medium none;
+				padding: 0;
 			}
 		}
 
-		.ui-tabs .ui-tabs-panel {
-			border-bottom: medium none;
-			border-left: medium none;
-			border-right: medium none;
-			padding: 0;
-		}
-
 		.facets {
-			overflow-y: auto;
 			width: 100%;
+			height: 100%;
+			overflow-y: scroll;
 		}
 
 	}
@@ -66,7 +73,6 @@
 
 			.summary-bar {
 				left: 7px;
-				font-size: 1.8em;
 				font-weight: bold;
 			}
 

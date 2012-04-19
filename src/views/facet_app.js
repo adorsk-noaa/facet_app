@@ -35,31 +35,23 @@ function($, Backbone, _, ui, _s, template){
 		},
 
 		resize: function(){
-			this.resizeLeftPanel();
+			// Resize inner container.
+			var inner_el = $('.facet-app > .inner', this.el);
+			var container = inner_el.parent();
+			var totalHeight = container.height();
+			inner_el.css('height', totalHeight);
+
+			// Resize right panel.
 			this.resizeRightPanel();
 		},
 
-		resizeLeftPanel: function() {
-			var container = $('.left-panel', this.el);
-			var totalHeight = container.height();
-			var headerHeight = $(".ui-tabs-nav", container).outerHeight(true);
-
-			var visibleTabPanels = $(".ui-tabs-panel:not(.ui-tabs-hide)", container);
-			var paddings = visibleTabPanels.outerHeight(true) - visibleTabPanels.height();
-
-			var allTabPanels = $(".ui-tabs-panel", container);
-			allTabPanels.height(totalHeight - headerHeight - paddings - 1);
-		},
-		
 		resizeRightPanel: function() {
 			var right_panel_el = $('.right-panel', this.el);
 			var container = right_panel_el.parent();
 			var totalWidth = container.width();
-			var totalHeight = container.height();
 			var left_panel_width = $('.left-panel', this.el).width();
 
 			right_panel_el.css('width', totalWidth - left_panel_width);
-			right_panel_el.css('height', totalHeight);
 
 			this.resizeDataViews();
 

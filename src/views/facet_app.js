@@ -29,14 +29,16 @@ function($, Backbone, _, ui, _s, template){
 
 			// Make left panel resizable.
 			var _this = this;
-			$(".left-panel", this.el).resizable({
-				minWidth: $('.left-panel', this.el).css('minWidth'),
+			var left_panel_el = $('.left-panel', this.el);
+			left_panel_el.resizable({
+				minWidth: left_panel_el.css('minWidth'),
 				handles: 'e',
 				stop: function(event, ui) {
+					left_panel_el.css('height', '100%');
 					_this.resizeRightPanel();
 				},
 				resize: function(event, ui){
-					var left_panel_bounds = _this.getBounds('.left-panel', _this.el);
+					var left_panel_bounds = _this.getBounds(left_panel_el);
 					var right_panel_el = $('.right-panel', _this.el);
 					right_panel_el.css('left', left_panel_bounds.right);
 				}

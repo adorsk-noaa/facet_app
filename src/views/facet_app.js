@@ -27,11 +27,41 @@ function($, Backbone, _, ui, _s, template){
 			app_html = _.template(template, {model: this.model.toJSON()});
 			$(this.el).html(app_html);
 
+			// Make left panel resizable.
+			var _this = this;
+			$(".left-panel", this.el).resizable({
+				minWidth: $('.left-panel', this.el).css('minWidth'),
+				handles: 'e',
+				stop: function(event, ui) {
+					_this.resizeRightPanel();
+				},
+				resize: function(event, ui){
+					var left_panel_bounds = _this.getBounds('.left-panel', _this.el);
+					var right_panel_el = $('.right-panel', _this.el);
+					right_panel_el.css('left', left_panel_bounds.right);
+				}
+			});
+
+			// Tabify left panel.
 			$('.left-panel .tabs', this.el).tabs({select: 0});
 
 			this.resize();
 
 			return this;
+		},
+
+		getBounds: function(el){
+			var pos = $(el).position();
+			var width = $(el).outerWidth(true);
+			var height = $(el).outerHeight(true);
+			return {
+				top: pos.top, 
+				right: pos.left + width, 
+				bottom: pos.top + height, 
+				left: pos.left,
+				width: width,
+				height: height
+			};
 		},
 
 		resize: function(){

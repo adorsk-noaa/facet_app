@@ -1,5 +1,5 @@
 define([
-	"use!underscore",
+	"underscore",
 	"./facet_app"
 ], 
 function(_, FacetAppView){

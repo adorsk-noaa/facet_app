@@ -1,8 +1,8 @@
 define([
 	"jquery",
-	"use!backbone",
-	"use!underscore",
-	"use!ui",
+	"backbone",
+	"underscore",
+	"ui",
 	"_s",
 	"text!./templates/facet_app.html",
 		],
@@ -29,7 +29,7 @@ function($, Backbone, _, ui, _s, template){
 
 			// Make left panel resizable.
 			var _this = this;
-			var left_panel_el = $('.left-panel', this.el);
+			var left_panel_el = $('.left.panel', this.el);
 			left_panel_el.resizable({
 				minWidth: left_panel_el.css('minWidth'),
 				handles: 'e',
@@ -39,13 +39,10 @@ function($, Backbone, _, ui, _s, template){
 				},
 				resize: function(event, ui){
 					var left_panel_bounds = _this.getBounds(left_panel_el);
-					var right_panel_el = $('.right-panel', _this.el);
+					var right_panel_el = $('.right.panel', _this.el);
 					right_panel_el.css('left', left_panel_bounds.right);
 				}
 			});
-
-			// Tabify left panel.
-			$('.left-panel .tabs', this.el).tabs({select: 0});
 
 			this.resize();
 
@@ -68,7 +65,7 @@ function($, Backbone, _, ui, _s, template){
 
 		resize: function(){
 			// Resize inner container.
-			var inner_el = $('.facet-app > .inner', this.el);
+			var inner_el = $('.inner', this.el);
 			var container = inner_el.parent();
 			var totalHeight = container.height();
 			inner_el.css('height', totalHeight);
